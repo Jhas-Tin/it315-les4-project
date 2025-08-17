@@ -1,20 +1,28 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import KeysPage from "./(dashboard)/keys/page";
+"use client";
+
+import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function HomePage() {
+  const { isSignedIn } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSignedIn) {
+      router.replace("/keys"); 
+    }
+  }, [isSignedIn, router]);
+
   return (
     <main className="">
       <SignedOut>
-        <div className="h-full w-full text-center text-2xl">
-          
-          Pls sign in to access the app.
-          
+        <div className="text-center text-2xl">
+          Please sign in to access the site.
         </div>
       </SignedOut>
       <SignedIn>
-        <KeysPage/>
+        <div className="h-screen flex items-center justify-center text-lg">Redirecting...</div>
       </SignedIn>
     </main>
   );

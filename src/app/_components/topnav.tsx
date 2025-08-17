@@ -3,7 +3,7 @@ import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from "@c
 export function TopNav() {
     return (
         <nav className="flex items-center w-full bg-gray-900 p-4 text-white border-b text-lg shadow-md justify-between">
-            <span className="font-bold text-2xl tracking-wide">API KEYS</span>
+            <span className="font-bold text-2xl tracking-wide">Integrative Programming</span>
             <div className="flex items-center gap-4">
                 <SignedOut>
                     <SignInButton>

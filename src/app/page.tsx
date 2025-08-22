@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function HomePage() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser(); // 👈 added isLoaded
   const router = useRouter();
 
   useEffect(() => {
-    if (isSignedIn) {
-      router.replace("/keys"); 
+    if (isLoaded && isSignedIn) {
+      router.replace("/keys");
     }
-  }, [isSignedIn, router]);
+  }, [isLoaded, isSignedIn, router]);
 
   return (
     <main className="">
@@ -22,7 +22,9 @@ export default function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className="h-screen flex items-center justify-center text-lg">Redirecting...</div>
+        <div className="h-screen flex items-center justify-center text-lg">
+          Redirecting...
+        </div>
       </SignedIn>
     </main>
   );

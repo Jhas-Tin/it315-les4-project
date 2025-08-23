@@ -34,20 +34,43 @@ type KeyItem = {
 
 export default function KeysPage() {
 
-  const { isSignedIn, isLoaded } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
   const router = useRouter();
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    if (isLoaded && !isSignedIn) {
-      router.push("/");
+    if (isLoaded) {
+      if (!isSignedIn) {
+        router.replace("/");
+      } else {
+        setChecking(false); 
+      }
     }
   }, [isLoaded, isSignedIn, router]);
-  if (!isLoaded) {
-    return null;
-  }
-  if (!isSignedIn) {
-    return null;
-  }
+
+  
+
+
+  // // 🚫 Don’t render until Clerk finishes loading
+  // if (!isLoaded) {
+  //   return (
+  //     <div className="flex min-h-screen items-center justify-center bg-gray-100">
+  //       <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+  //       <p className="text-gray-600 font-medium mt-3">Checking authentication...</p>
+  //     </div>
+  //   );
+  // }
+
+  // // 🚫 While redirect is happening, block the page
+  // if (!isSignedIn) {
+  //   return (
+  //     <div className="flex min-h-screen items-center justify-center bg-gray-100">
+  //       <p className="text-gray-600 font-medium">Redirecting...</p>
+  //     </div>
+  //   );
+  // }
+ 
+
 
   
   const [name, setName] = useState("My API Key");
